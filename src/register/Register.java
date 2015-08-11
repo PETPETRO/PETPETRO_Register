@@ -1,8 +1,8 @@
 package register;
 
-import java.lang.invoke.WrongMethodTypeException;
+import java.io.Serializable;
 
-public interface Register {
+public interface Register extends Serializable {
 
 	/**
 	 * Returns the number of persons in this register.
@@ -32,8 +32,9 @@ public interface Register {
 	 * 
 	 * @param person
 	 *            person to append to this register
+	 * @throws Exception
 	 */
-	void addPerson(Person person);
+	void addPerson(Person person) throws Exception;
 
 	/**
 	 * Returns the person with specified name in this register or
@@ -42,8 +43,9 @@ public interface Register {
 	 * @param name
 	 *            name of a person to search for
 	 * @return person with specified phone number
+	 * @throws Exception
 	 */
-	Person findPersonByName(String name) throws WrongMethodTypeException;
+	Person findPersonByName(String name) throws Exception;
 
 	/**
 	 * Returns the person with specified phone number in this register or
@@ -52,16 +54,18 @@ public interface Register {
 	 * @param phoneNumber
 	 *            phone number of a person to search for
 	 * @return person with specified phone number
+	 * @throws Exception
 	 */
-	Person findPersonByPhoneNumber(String phoneNumber);
+	Person findPersonByPhoneNumber(String phoneNumber) throws Exception;
 
 	/**
 	 * Removes the specified person from the register.
 	 * 
 	 * @param person
 	 *            person to remove
+	 * @throws Exception
 	 */
 
-	void removePerson(Person person);
+	void removePerson(Person person) throws Exception;
 
 }

@@ -26,10 +26,13 @@ public class Person implements Comparable<Person>, Serializable {
 	 *            name of the person
 	 * @param phoneNumber
 	 *            phone number of the person
+	 * @throws Exception
 	 */
-	public Person(String name, String phoneNumber) {
+	public Person(String name, String phoneNumber) throws Exception {
+
 		this.name = name;
 		this.setPhoneNumber(phoneNumber);
+
 	}
 
 	/**
@@ -66,11 +69,12 @@ public class Person implements Comparable<Person>, Serializable {
 	 * @param phoneNumberNew
 	 *            phone number of this person
 	 */
-	public void setPhoneNumber(String phoneNumberNew) {
-		if (!isValidPhoneNumber(phoneNumberNew)) {
-			throw new RuntimeException("Phone number is not valid");
+	public void setPhoneNumber(String phoneNumberNew) throws Exception {
+		if (isValidPhoneNumber(phoneNumberNew)) {
+			phoneNumber = phoneNumberNew;
+			return;
 		}
-		phoneNumber = phoneNumberNew;
+		throw new Exception("Phone number is not valid");
 	}
 
 	/**
@@ -104,18 +108,7 @@ public class Person implements Comparable<Person>, Serializable {
 	 */
 	@Override
 	public int compareTo(Person o) throws NullPointerException {
-		return this.getName().compareTo(o.getName());
-		// String p1name = this.getName();
-		// String p2name = o.getName();
-		// if (p1name == p2name) {
-		// return 0;
-		// } else if (p1name.charAt(0) < p2name.charAt(0)) {
-		// return -1;
-		// } else if (p1name.charAt(0) > p2name.charAt(0)) {
-		// return 1;
-		// } else {
-		// throw new NullPointerException("Compared object is null !");
-		// }
+		return this.getName().compareToIgnoreCase(o.getName());
 
 	}
 

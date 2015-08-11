@@ -22,8 +22,9 @@ public class ConsoleUI {
 	 */
 
 	/** register.Register of persons. */
-	// private ArrayRegister arrayRegister;
+
 	private Register register;
+	private RegisterLoader databaseLoad = new DatabaseRegisterLoader();
 
 	/**
 	 * In JDK 6 use Console class instead.
@@ -39,13 +40,14 @@ public class ConsoleUI {
 		PRINT, ADD, UPDATE, REMOVE, FIND, EXIT
 	};
 
-	public ConsoleUI(Register register) {
-		this.register = register;
-	}
+	public ConsoleUI() {
+		// register = fileLoad.load();
+		register = databaseLoad.load();
+		if (register == null) {
+			chooseList();
+		}
 
-	// public ConsoleUI(ArrayRegister arrayRegister) {
-	// this.arrayRegister = arrayRegister;
-	// }
+	}
 
 	/**
 	 * Options after run
@@ -72,17 +74,38 @@ public class ConsoleUI {
 				findInRegister();
 				break;
 			case EXIT:
-				writeToFile();
+
+				// this.fileLoad.save(this.register);
+				this.databaseLoad.save(this.register);
 				return;
 			}
 		}
 	}
 
-	private void writeToFile() throws IOException {
-		FileOutputStream out = new FileOutputStream("out.bin");
-		ObjectOutputStream s = new ObjectOutputStream(out);
-		s.writeObject(register);
-		s.close();
+	private void chooseList() {
+		System.out.println("Vyberte:\n1.Array\n2.List\n3.Koniec");
+		String s;
+
+		do {
+			s = readLine().toString();
+			switch (s) {
+			case "1":
+				register = new ArrayRegister(20);
+				break;
+			case "2":
+				register = new ListRegister();
+				break;
+
+			case "3":
+				System.exit(0);
+				break;
+
+			default:
+				System.out.print("Zadaj 1 alebo 2 alebo 3");
+
+			}
+		} while (!s.matches("[123]"));
+
 	}
 
 	/**
@@ -143,19 +166,26 @@ public class ConsoleUI {
 
 		System.out.println("Enter Phone Number: ");
 		String phoneNumber = readLine();
-
-		register.addPerson(new Person(name, phoneNumber));
+		try {
+			register.addPerson(new Person(name, phoneNumber));
+		} catch (Exception e) {
+			e.getMessage();
+			System.err.println(e);
+		}
 
 	}
 
 	/**
 	 * Update person in register
+	 * 
+	 * @throws Exception
 	 */
-	private void updateRegister() {
+	private void updateRegister() throws Exception {
 		Pattern p = Pattern.compile("[MT]");
 		System.out.println("Enter index: ");
 		int index = Integer.parseInt(readLine());
 		Person person = register.getPerson(index - 1);
+		// register.updatePerson(person);
 		System.out.println("Pre zmenu mena zadajte M, pre zmenu tel. cisla zadajte T");
 		String mt = readLine().toUpperCase();
 		Matcher m = p.matcher(mt);
@@ -175,8 +205,10 @@ public class ConsoleUI {
 
 	/**
 	 * Find person in register by name or telephone number
+	 * 
+	 * @throws Exception
 	 */
-	private void findInRegister() {
+	private void findInRegister() throws Exception {
 		Pattern p = Pattern.compile("[MT]");
 		System.out.println("Pre hladanie podla mena zadajte M, pre hladanie tel. cisla zadajte T");
 		String mt = readLine().toUpperCase();
@@ -200,12 +232,19 @@ public class ConsoleUI {
 
 	/**
 	 * Remove person from register on index from input
+	 * 
+	 * @throws Exception
 	 */
-	private void removeFromRegister() {
+	private void removeFromRegister() throws Exception {
 		System.out.println("Enter index: ");
 		int index = Integer.parseInt(readLine());
-		Person person = register.getPerson(index - 1);
-		register.removePerson(person);
+		try {
+			Person person = register.getPerson(index - 1);
+			register.removePerson(person);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 }

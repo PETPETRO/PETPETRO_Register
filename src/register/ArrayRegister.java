@@ -1,12 +1,16 @@
 package register;
 
+/**
+ * register.Person register.
+ */
+
 import java.io.Serializable;
-import java.lang.invoke.WrongMethodTypeException;
 
 /**
  * register.Person register.
  */
 public class ArrayRegister implements Register, Serializable {
+
 	/**
 	 * 
 	 */
@@ -64,15 +68,16 @@ public class ArrayRegister implements Register, Serializable {
 	 * @param person
 	 *            person to append to this register
 	 */
-	public void addPerson(Person person) {
+
+	public void addPerson(Person person) throws Exception {
 
 		for (int i = 0; i < count; i++) {
 			if (person.getName().equals(persons[i].getName())
 					|| person.getPhoneNumber().equals(persons[i].getPhoneNumber())) {
-				System.err.println("Osoba s takym menom alebo telefonnym cislom uz existuje");
-				return;
+				throw new Exception("Osoba s takym menom alebo telefonnym cislom uz existuje");
 			}
 		}
+
 		persons[count] = person;
 		count++;
 	}
@@ -85,14 +90,14 @@ public class ArrayRegister implements Register, Serializable {
 	 *            name of a person to search for
 	 * @return person with specified phone number
 	 */
-	public Person findPersonByName(String name) throws WrongMethodTypeException {
+	public Person findPersonByName(String name) throws Exception {
 
 		for (int i = 0; i < count; i++) {
 			if (name.equals(persons[i].getName())) {
 				return persons[i];
 			}
 		}
-		throw new WrongMethodTypeException("Take meno neexistuje");
+		throw new Exception("Take meno neexistuje");
 	}
 
 	/**
@@ -102,14 +107,15 @@ public class ArrayRegister implements Register, Serializable {
 	 * @param phoneNumber
 	 *            phone number of a person to search for
 	 * @return person with specified phone number
+	 * @throws Exception
 	 */
-	public Person findPersonByPhoneNumber(String phoneNumber) {
+	public Person findPersonByPhoneNumber(String phoneNumber) throws Exception {
 		for (int i = 0; i < count; i++) {
 			if (phoneNumber.equals(persons[i].getPhoneNumber())) {
 				return persons[i];
 			}
 		}
-		throw new WrongMethodTypeException("Take tel. cislo neexistuje");
+		throw new Exception("Take tel. cislo neexistuje");
 	}
 
 	/**
@@ -118,16 +124,21 @@ public class ArrayRegister implements Register, Serializable {
 	 * @param person
 	 *            person to remove
 	 */
-	public void removePerson(Person person) {
+
+	public void removePerson(Person person) throws Exception {
+
 		for (int i = 0; i < count; i++) {
-			if (person.equals(persons[i])) {
+
+			if (person.equals(getPerson(i))) {
 				--count;
 				for (; i < count; ++i) {
 					persons[i] = persons[i + 1];
-				}
 
+				}
+				return;
 			}
 		}
-
+		throw new Exception("Taka osoba neexistuje");
 	}
+
 }

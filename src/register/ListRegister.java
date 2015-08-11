@@ -1,7 +1,6 @@
 package register;
 
 import java.io.Serializable;
-import java.lang.invoke.WrongMethodTypeException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,14 +64,14 @@ public class ListRegister implements Register, Serializable {
 	 *            person to append to this register
 	 */
 	@Override
-	public void addPerson(Person person) {
+	public void addPerson(Person person) throws Exception {
 		for (int i = 0; i < this.getSize(); i++) {
 			if (person.getName().equals(this.getPerson(i).getName())
 					|| person.getPhoneNumber().equals(this.getPerson(i).getPhoneNumber())) {
-				System.err.println("Osoba s takym menom alebo telefonnym cislom uz existuje");
-				return;
+				throw new Exception("Osoba s takym menom alebo telefonnym cislom uz existuje");
 			}
 		}
+
 		persons.add(person);
 		update();
 
@@ -87,14 +86,14 @@ public class ListRegister implements Register, Serializable {
 	 * @return person with specified phone number
 	 */
 	@Override
-	public Person findPersonByName(String name) throws WrongMethodTypeException {
+	public Person findPersonByName(String name) throws Exception {
 
 		for (int i = 0; i < persons.size(); i++) {
 			if (name.equals(this.getPerson(i).getName())) {
 				return this.getPerson(i);
 			}
 		}
-		throw new WrongMethodTypeException("Take meno neexistuje");
+		throw new Exception("Take meno neexistuje");
 	}
 
 	/**
@@ -106,13 +105,13 @@ public class ListRegister implements Register, Serializable {
 	 * @return person with specified phone number
 	 */
 	@Override
-	public Person findPersonByPhoneNumber(String phoneNumber) {
+	public Person findPersonByPhoneNumber(String phoneNumber) throws Exception {
 		for (int i = 0; i < persons.size(); i++) {
 			if (phoneNumber.equals(this.getPerson(i).getPhoneNumber())) {
 				return this.getPerson(i);
 			}
 		}
-		throw new WrongMethodTypeException("Take tel. cislo neexistuje");
+		throw new Exception("Take tel. cislo neexistuje");
 	}
 
 	/**
@@ -122,14 +121,15 @@ public class ListRegister implements Register, Serializable {
 	 *            person to remove
 	 */
 	@Override
-	public void removePerson(Person person) throws WrongMethodTypeException {
+	public void removePerson(Person person) throws Exception {
 		try {
 			this.persons.remove(this.findPersonByName(person.getName()));
-		} catch (WrongMethodTypeException e) {
+			update();
+		} catch (Exception e) {
+
 			e.getMessage();
 			System.err.println(e);
 		}
-		update();
 
 	}
 
