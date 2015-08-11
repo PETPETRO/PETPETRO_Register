@@ -1,37 +1,64 @@
 package register;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+
 /**
  * Created by Peter Petrovaj on 7.8.2015.
  */
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		ArrayRegister arrayRegister = new ArrayRegister(20);
-		ListRegister register = new ListRegister();
+	private static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+	private static ObjectInputStream pers;
 
-		arrayRegister.addPerson(new Person("Peter Petrovaj", "0935123456"));
-		arrayRegister.addPerson(new Person("Janko Hrasko", "+23565662655"));
-		arrayRegister.addPerson(new Person("Adam Hrasko", "46546545646456"));
+	private static String readLine() {
 
-		register.addPerson(new Person("Peter Petrovaj", "0935123456"));
-		register.addPerson(new Person("Janko Hrasko", "+23565662655"));
-		register.addPerson(new Person("Adam Hrasko", "46546545646456"));
-
-		ConsoleUI uar = new ConsoleUI(arrayRegister);
-		ConsoleUI ulr = new ConsoleUI(register);
-
-		// System.out.println("Vyberte si rozhranie 1\\2
-		// :\n1.ArrayRegister\n2.ListRegister");
-		// String input = System.console().readLine();
-		// if (input == "1") {
-		// uar.run();
-		// } else if (input == "2") {
-		// ulr.run();
-		// } else
-		// System.err.println("Zadal si nespravne");
-		//
-		// }
-
-		ulr.run();
+		try {
+			return input.readLine();
+		} catch (IOException e) {
+			return null;
+		}
 	}
+
+	public static void main(String[] args) throws Exception {
+
+		Register arrayRegister = new ArrayRegister(20);
+		Register listRegister = new ListRegister();
+		Register register = null;
+		ConsoleUI ui = null;
+
+		if (new File("out.bin").exists()) {
+			FileInputStream input = new FileInputStream("out.bin");
+			pers = new ObjectInputStream(input);
+			register = (Register) pers.readObject();
+			pers.close();
+		}
+		System.out.println("Vyberte:\n1.Array\n2.List\n3.Koniec");
+
+		switch (readLine().toString()) {
+		case "1":
+			arrayRegister = register;
+			ui = new ConsoleUI(arrayRegister);
+			break;
+		case "2":
+			listRegister = register;
+			ui = new ConsoleUI(listRegister);
+			break;
+
+		case "3":
+			System.exit(0);
+			break;
+
+		default:
+			System.out.print("Zadaj 1 alebo 2");
+
+		}
+		ui.run();
+
+	}
+
 }

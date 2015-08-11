@@ -1,11 +1,17 @@
 package register;
 
+import java.io.Serializable;
 import java.lang.invoke.WrongMethodTypeException;
 
 /**
  * register.Person register.
  */
-public class ArrayRegister {
+public class ArrayRegister implements Register, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** register.Person array. */
 	private Person[] persons;
 
@@ -59,6 +65,7 @@ public class ArrayRegister {
 	 *            person to append to this register
 	 */
 	public void addPerson(Person person) {
+
 		for (int i = 0; i < count; i++) {
 			if (person.getName().equals(persons[i].getName())
 					|| person.getPhoneNumber().equals(persons[i].getPhoneNumber())) {

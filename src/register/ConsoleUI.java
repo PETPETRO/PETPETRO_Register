@@ -1,8 +1,10 @@
 package register;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.util.Formatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,9 +13,17 @@ import java.util.regex.Pattern;
  * User interface of the application.
  */
 public class ConsoleUI {
+	/**
+	 * 
+	 */
+
+	/**
+	 * 
+	 */
+
 	/** register.Register of persons. */
-	private ArrayRegister arrayRegister;
-	private ListRegister register;
+	// private ArrayRegister arrayRegister;
+	private Register register;
 
 	/**
 	 * In JDK 6 use Console class instead.
@@ -29,18 +39,21 @@ public class ConsoleUI {
 		PRINT, ADD, UPDATE, REMOVE, FIND, EXIT
 	};
 
-	public ConsoleUI(ListRegister register) {
+	public ConsoleUI(Register register) {
 		this.register = register;
 	}
 
-	public ConsoleUI(ArrayRegister arrayRegiste) {
-		this.arrayRegister = arrayRegister;
-	}
+	// public ConsoleUI(ArrayRegister arrayRegister) {
+	// this.arrayRegister = arrayRegister;
+	// }
 
 	/**
 	 * Options after run
+	 * 
+	 * @throws Exception
 	 */
-	public void run() {
+	public void run() throws Exception {
+
 		while (true) {
 			switch (showMenu()) {
 			case PRINT:
@@ -59,9 +72,17 @@ public class ConsoleUI {
 				findInRegister();
 				break;
 			case EXIT:
+				writeToFile();
 				return;
 			}
 		}
+	}
+
+	private void writeToFile() throws IOException {
+		FileOutputStream out = new FileOutputStream("out.bin");
+		ObjectOutputStream s = new ObjectOutputStream(out);
+		s.writeObject(register);
+		s.close();
 	}
 
 	/**
@@ -115,13 +136,16 @@ public class ConsoleUI {
 	/**
 	 * Add person with telephone number to register
 	 */
-	private void addToRegister() {
+	private void addToRegister() throws Exception {
+
 		System.out.println("Enter Name: ");
 		String name = readLine();
+
 		System.out.println("Enter Phone Number: ");
 		String phoneNumber = readLine();
 
 		register.addPerson(new Person(name, phoneNumber));
+
 	}
 
 	/**

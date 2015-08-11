@@ -1,12 +1,20 @@
 package register;
 
+import java.io.Serializable;
 import java.lang.invoke.WrongMethodTypeException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ListRegister implements Register {
+public class ListRegister implements Register, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private List<Person> persons;
 	// = new ArrayList<Person>();
 
@@ -46,6 +54,10 @@ public class ListRegister implements Register {
 		return persons.get(index);
 	}
 
+	public void update() {
+		Collections.sort(persons);
+	}
+
 	/**
 	 * Appends the specified person to the end of this register.
 	 * 
@@ -62,7 +74,7 @@ public class ListRegister implements Register {
 			}
 		}
 		persons.add(person);
-		Collections.sort(persons);
+		update();
 
 	}
 
@@ -113,11 +125,11 @@ public class ListRegister implements Register {
 	public void removePerson(Person person) throws WrongMethodTypeException {
 		try {
 			this.persons.remove(this.findPersonByName(person.getName()));
-			Collections.sort(persons);
 		} catch (WrongMethodTypeException e) {
 			e.getMessage();
 			System.err.println(e);
 		}
+		update();
 
 	}
 
