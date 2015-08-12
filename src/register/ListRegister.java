@@ -122,14 +122,9 @@ public class ListRegister implements Register, Serializable {
 	 */
 	@Override
 	public void removePerson(Person person) throws Exception {
-		try {
-			this.persons.remove(this.findPersonByName(person.getName()));
-			update();
-		} catch (Exception e) {
 
-			e.getMessage();
-			System.err.println(e);
-		}
+		this.persons.remove(this.findPersonByName(person.getName()));
+		update();
 
 	}
 

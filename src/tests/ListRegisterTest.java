@@ -33,38 +33,51 @@ public class ListRegisterTest {
 		}
 		assertEquals(register.getPerson(0), person1);
 		assertEquals(register.getCount(), 1);
+	}
+
+	@Test
+	public void addPersonDuplicite() {
+
 		try {
+			register.addPerson(person1);
 			register.addPerson(person1);
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
 		assertEquals(exception, "Osoba s takym menom alebo telefonnym cislom uz existuje");
 		assertEquals(register.getCount(), 1);
-
 	}
 
 	@Test
-	public void findPersonByName() throws Exception {
+	public void findPersonByNameExist() throws Exception {
+		register.addPerson(person1);
+		assertEquals(register.findPersonByName(person1.getName()), person1);
+	}
+
+	@Test
+	public void findPersonByNameNotExist() throws Exception {
 		try {
 			register.findPersonByName(person1.getName());
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
 		assertEquals(exception, "Take meno neexistuje");
-		register.addPerson(person1);
-		assertEquals(register.findPersonByName(person1.getName()), person1);
 	}
 
 	@Test
-	public void findPersonByPhoneNumber() throws Exception {
+	public void findPersonByPhoneNumberExist() throws Exception {
+		register.addPerson(person1);
+		assertEquals(register.findPersonByPhoneNumber(person1.getPhoneNumber()), person1);
+	}
+
+	@Test
+	public void findPersonByPhoneNumberNotExist() throws Exception {
 		try {
 			register.findPersonByPhoneNumber(person1.getPhoneNumber());
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
 		assertEquals(exception, "Take tel. cislo neexistuje");
-		register.addPerson(person1);
-		assertEquals(register.findPersonByPhoneNumber(person1.getPhoneNumber()), person1);
 	}
 
 	@Test

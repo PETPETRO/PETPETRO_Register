@@ -25,7 +25,7 @@ public class ArrayRegisterTest {
 	}
 
 	@Test
-	public void addPerson() {
+	public void addPersonSuccess() {
 
 		try {
 			register.addPerson(person1);
@@ -33,7 +33,13 @@ public class ArrayRegisterTest {
 		}
 		assertEquals(register.getPerson(0), person1);
 		assertEquals(register.getCount(), 1);
+
+	}
+
+	@Test
+	public void addPersonFail() {
 		try {
+			register.addPerson(person1);
 			register.addPerson(person1);
 		} catch (Exception e) {
 			exception = e.getMessage();
@@ -44,37 +50,51 @@ public class ArrayRegisterTest {
 	}
 
 	@Test
-	public void findPersonByName() throws Exception {
+	public void findPersonByNameFail() throws Exception {
 		try {
 			register.findPersonByName(person1.getName());
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
 		assertEquals(exception, "Take meno neexistuje");
+	}
+
+	@Test
+	public void findPersonByNameSucces() throws Exception {
 		register.addPerson(person1);
 		assertEquals(register.findPersonByName(person1.getName()), person1);
 	}
 
 	@Test
-	public void findPersonByPhoneNumber() throws Exception {
+	public void findPersonByPhoneNumberFail() throws Exception {
 		try {
 			register.findPersonByPhoneNumber(person1.getPhoneNumber());
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
 		assertEquals(exception, "Take tel. cislo neexistuje");
+
+	}
+
+	@Test
+	public void findPersonByPhoneNumberSucces() throws Exception {
 		register.addPerson(person1);
 		assertEquals(register.findPersonByPhoneNumber(person1.getPhoneNumber()), person1);
 	}
 
 	@Test
-	public void removePerson() throws Exception {
+	public void removePersonFail() throws Exception {
 		try {
 			register.removePerson(person1);
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
 		assertEquals(exception, "Taka osoba neexistuje");
+
+	}
+
+	@Test
+	public void removePersonSucces() throws Exception {
 		register.addPerson(person1);
 		register.addPerson(person2);
 		assertEquals(person1, register.getPerson(0));

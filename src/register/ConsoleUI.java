@@ -1,10 +1,8 @@
 package register;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.util.Formatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +22,7 @@ public class ConsoleUI {
 	/** register.Register of persons. */
 
 	private Register register;
+	// private RegisterLoader fileLoad = new FileRegisterLoader();
 	private RegisterLoader databaseLoad = new DatabaseRegisterLoader();
 
 	/**
@@ -180,27 +179,34 @@ public class ConsoleUI {
 	 * 
 	 * @throws Exception
 	 */
-	private void updateRegister() throws Exception {
-		Pattern p = Pattern.compile("[MT]");
-		System.out.println("Enter index: ");
-		int index = Integer.parseInt(readLine());
-		Person person = register.getPerson(index - 1);
-		// register.updatePerson(person);
-		System.out.println("Pre zmenu mena zadajte M, pre zmenu tel. cisla zadajte T");
-		String mt = readLine().toUpperCase();
-		Matcher m = p.matcher(mt);
-		if (m.matches()) {
-			if (mt.charAt(0) == 'M' && mt.length() == 1) {
-				System.out.println("Zadajte meno:");
-				String meno = readLine();
-				person.setName(meno);
-			} else if (mt.charAt(0) == 'T' && mt.length() == 1) {
-				System.out.println("Zadajte tel. cislo:");
-				String tel = readLine();
-				person.setPhoneNumber(tel);
-			}
-		} else
-			System.out.println("Zadal si nespravne");
+	private void updateRegister() {
+
+		try {
+			Pattern p = Pattern.compile("[MT]");
+			System.out.println("Enter index: ");
+			int index = Integer.parseInt(readLine());
+			Person person = register.getPerson(index - 1);
+			// register.updatePerson(person);
+			System.out.println("Pre zmenu mena zadajte M, pre zmenu tel. cisla zadajte T");
+			String mt = readLine().toUpperCase();
+			Matcher m = p.matcher(mt);
+			if (m.matches()) {
+				if (mt.charAt(0) == 'M' && mt.length() == 1) {
+					System.out.println("Zadajte meno:");
+					String meno = readLine();
+					person.setName(meno);
+				} else if (mt.charAt(0) == 'T' && mt.length() == 1) {
+					System.out.println("Zadajte tel. cislo:");
+					String tel = readLine();
+					person.setPhoneNumber(tel);
+				}
+			} else
+				System.out.println("Zadal si nespravne");
+		} catch (Exception e) {
+			e.getMessage();
+			System.err.println(e);
+		}
+
 	}
 
 	/**
@@ -209,25 +215,32 @@ public class ConsoleUI {
 	 * @throws Exception
 	 */
 	private void findInRegister() throws Exception {
-		Pattern p = Pattern.compile("[MT]");
-		System.out.println("Pre hladanie podla mena zadajte M, pre hladanie tel. cisla zadajte T");
-		String mt = readLine().toUpperCase();
-		Matcher m = p.matcher(mt);
-		Person person;
-		if (m.matches()) {
-			if (mt.charAt(0) == 'M' && mt.length() == 1) {
-				System.out.println("Zadajte meno:");
-				String meno = readLine();
-				person = register.findPersonByName(meno);
-				System.out.println(person.toString());
-			} else if (mt.charAt(0) == 'T' && mt.length() == 1) {
-				System.out.println("Zadajte tel. cislo:");
-				String tel = readLine();
-				person = register.findPersonByPhoneNumber(tel);
-				System.out.println(person.toString());
-			}
-		} else
-			System.out.println("Zadal si nespravne");
+		try {
+			Pattern p = Pattern.compile("[MT]");
+			System.out.println("Pre hladanie podla mena zadajte M, pre hladanie tel. cisla zadajte T");
+			String mt = readLine().toUpperCase();
+			Matcher m = p.matcher(mt);
+			Person person;
+			if (m.matches()) {
+				if (mt.charAt(0) == 'M' && mt.length() == 1) {
+					System.out.println("Zadajte meno:");
+					String meno = readLine();
+					person = register.findPersonByName(meno);
+					System.out.println(person.toString());
+				} else if (mt.charAt(0) == 'T' && mt.length() == 1) {
+					System.out.println("Zadajte tel. cislo:");
+					String tel = readLine();
+					person = register.findPersonByPhoneNumber(tel);
+					System.out.println(person.toString());
+				}
+			} else
+				System.out.println("Zadal si nespravne");
+
+		} catch (Exception e) {
+			e.getMessage();
+			System.err.println(e);
+		}
+
 	}
 
 	/**

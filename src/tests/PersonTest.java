@@ -10,10 +10,14 @@ import register.*;
 public class PersonTest {
 
 	private Person person;
+	private Person person2;
+	private Person person3;
 
 	@Before
 	public void setUp() throws Exception {
 		person = new Person("Jano", "545646546564456");
+		person2 = new Person("Adam", "1234563456");
+		person3 = new Person("Vlado", "09876534223243");
 	}
 
 	@Test
@@ -23,49 +27,37 @@ public class PersonTest {
 		assertEquals(person.getPhoneNumber(), newPhoneNumber);
 	}
 
-	@Test
-	public void InvalidPhoneNumber() {
-		Exception exception = null;
-		String invalidphoneNumber1 = "123456";
-		String invalidphoneNumber2 = "123456dfdertg";
+	@Test(expected = Exception.class)
+	public void InvalidPhoneNumberLength() throws Exception {
+		person.setPhoneNumber("123456");
+	}
 
-		try {
-			person.setPhoneNumber(invalidphoneNumber1);
-		} catch (Exception e) {
-			exception = e;
-		}
-		assertEquals(new Exception().getClass(), exception.getClass());
-
-		exception = null;
-		try {
-			person.setPhoneNumber(invalidphoneNumber2);
-		} catch (Exception e) {
-			exception = e;
-		}
-		assertEquals(new Exception().getClass(), exception.getClass());
-
+	@Test(expected = Exception.class)
+	public void InvalidPhoneNumberContent() throws Exception {
+		person.setPhoneNumber("123456dfdertg");
 	}
 
 	@Test
-	public void ValidPhoneNumber() throws Exception {
-		String validphoneNumber1 = "+1234567891";
-		String validphoneNumber2 = "232321234567891";
-		person.setPhoneNumber(validphoneNumber1);
-		assertEquals(person.getPhoneNumber(), validphoneNumber1);
-		person.setPhoneNumber(validphoneNumber2);
-		assertEquals(person.getPhoneNumber(), validphoneNumber2);
+	public void ValidPhoneNumberPrefix() throws Exception {
+		person.setPhoneNumber("+1234567891");
+		assertEquals(person.getPhoneNumber(), "+1234567891");
+	}
+
+	@Test
+	public void ValidPhoneNumberLength() throws Exception {
+		person.setPhoneNumber("232321234567891");
+		assertEquals(person.getPhoneNumber(), "232321234567891");
 	}
 
 	@Test
 	public void compareTo() throws Exception {
-		Person person2 = new Person("Adam", "1234563456");
-		Person person3 = new Person("Vlado", "09876534223243");
+
 		int compare = person2.compareTo(person3);
-		assertEquals(compare, "Adam".compareToIgnoreCase("Vlado"));
+		assertTrue(compare < 0);
 		compare = person3.compareTo(person2);
-		assertEquals(compare, "Vlado".compareToIgnoreCase("Adam"));
+		assertTrue(compare > 0);
 		compare = person2.compareTo(person2);
-		assertEquals(compare, "Adam".compareToIgnoreCase("Adam"));
+		assertTrue(compare == 0);
 
 	}
 }
