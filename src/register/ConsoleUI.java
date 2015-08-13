@@ -22,9 +22,9 @@ public class ConsoleUI {
 	/** register.Register of persons. */
 
 	private Register register;
-	// private RegisterLoader fileLoad = new FileRegisterLoader();
-	private RegisterLoader databaseLoad = new DatabaseRegisterLoader();
-
+	// private RegisterLoader Load = new FileRegisterLoader();
+	// private RegisterLoader Load = new DatabaseRegisterLoader();
+	private RegisterLoader Load = new TextFileRegisterLoader();
 	/**
 	 * In JDK 6 use Console class instead.
 	 * 
@@ -41,7 +41,7 @@ public class ConsoleUI {
 
 	public ConsoleUI() {
 		// register = fileLoad.load();
-		register = databaseLoad.load();
+		register = Load.load();
 		if (register == null) {
 			chooseList();
 		}
@@ -75,7 +75,7 @@ public class ConsoleUI {
 			case EXIT:
 
 				// this.fileLoad.save(this.register);
-				this.databaseLoad.save(this.register);
+				this.Load.save(this.register);
 				return;
 			}
 		}

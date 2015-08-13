@@ -88,12 +88,9 @@ public class ListRegister implements Register, Serializable {
 	@Override
 	public Person findPersonByName(String name) throws Exception {
 
-		for (int i = 0; i < persons.size(); i++) {
-			if (name.equals(this.getPerson(i).getName())) {
-				return this.getPerson(i);
-			}
-		}
-		throw new Exception("Take meno neexistuje");
+		return persons.stream().filter(s -> s.getName().equals(name)).findFirst()
+				.orElseThrow(() -> new Exception("Take meno neexistuje"));
+
 	}
 
 	/**
@@ -106,12 +103,10 @@ public class ListRegister implements Register, Serializable {
 	 */
 	@Override
 	public Person findPersonByPhoneNumber(String phoneNumber) throws Exception {
-		for (int i = 0; i < persons.size(); i++) {
-			if (phoneNumber.equals(this.getPerson(i).getPhoneNumber())) {
-				return this.getPerson(i);
-			}
-		}
-		throw new Exception("Take tel. cislo neexistuje");
+
+		return persons.stream().filter(s -> s.getPhoneNumber().equals(phoneNumber)).findFirst()
+				.orElseThrow(() -> new Exception("Take tel. cislo neexistuje"));
+
 	}
 
 	/**
