@@ -39,7 +39,7 @@ public class ConsoleUI {
 		Register text = textLoad.load();
 		Register database = databaseLoad.load();
 		int i = 1;
-		System.out.println(Option.values().length);
+
 		System.out.println("Which register do you want to load ?\n");
 		if (file != null) {
 			System.out.printf("%-30s %7s%n", i++ + ". Register from binary file.", "Enter B");
