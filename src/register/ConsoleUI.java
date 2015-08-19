@@ -109,6 +109,9 @@ public class ConsoleUI {
 		}
 	}
 
+	/**
+	 * Save register in text file, binary file or database
+	 */
 	private void save() {
 		System.out.println("Where do you want to save your register ?\n");
 		System.out.printf("%-30s %7s %n", "1. Binary file", "Enter 1");
@@ -135,6 +138,9 @@ public class ConsoleUI {
 		this.loader.save(this.register);
 	}
 
+	/**
+	 * Create the chosen register
+	 */
 	private void chooseList() {
 		System.out.println("Choose:\n1.Array\n2.List\n3.End");
 		String s;
