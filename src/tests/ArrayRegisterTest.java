@@ -44,7 +44,8 @@ public class ArrayRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Osoba s takym menom alebo telefonnym cislom uz existuje");
+		assertEquals(exception, "Person with this name or telephone number already exist in register.\n"
+				+ "Name and telephone number must be unique. ");
 		assertEquals(register.getCount(), 1);
 
 	}
@@ -56,7 +57,7 @@ public class ArrayRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Take meno neexistuje");
+		assertEquals(exception, "This name does not exist in register.");
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class ArrayRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Take tel. cislo neexistuje");
+		assertEquals(exception, "This tel. number does not exist in register.");
 
 	}
 
@@ -89,7 +90,7 @@ public class ArrayRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Taka osoba neexistuje");
+		assertEquals(exception, "This person does not exist in register.");
 
 	}
 

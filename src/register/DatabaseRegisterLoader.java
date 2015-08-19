@@ -19,9 +19,11 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 	public static final String CREATE_TABLE = "create table person (id int primary key,name varchar(30) not null,phoneNumber varchar(30) not null)";
 
 	public DatabaseRegisterLoader() {
-
 	}
 
+	/**
+	 * Save register to database.
+	 */
 	@Override
 	public void save(Register register) {
 
@@ -46,9 +48,11 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 			System.err.println(e);
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * Load register from database to collection ArrayList.
+	 */
 	@Override
 	public Register load() {
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -64,11 +68,10 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 			}
 			return register;
 		} catch (Exception e) {
-			e.getMessage();
-			System.err.println(e);
+			e = new Exception("Sorry, there is no database to load !");
+			System.err.println(e.getMessage());
 		}
 		return null;
-
 	}
 
 }

@@ -11,9 +11,6 @@ import java.io.Serializable;
  */
 public class ArrayRegister implements Register, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/** register.Person array. */
@@ -74,10 +71,10 @@ public class ArrayRegister implements Register, Serializable {
 		for (int i = 0; i < count; i++) {
 			if (person.getName().equals(persons[i].getName())
 					|| person.getPhoneNumber().equals(persons[i].getPhoneNumber())) {
-				throw new Exception("Osoba s takym menom alebo telefonnym cislom uz existuje");
+				throw new Exception("Person with this name or telephone number already exist in register.\n"
+						+ "Name and telephone number must be unique. ");
 			}
 		}
-
 		persons[count] = person;
 		count++;
 	}
@@ -97,7 +94,7 @@ public class ArrayRegister implements Register, Serializable {
 				return persons[i];
 			}
 		}
-		throw new Exception("Take meno neexistuje");
+		throw new Exception("This name does not exist in register.");
 	}
 
 	/**
@@ -115,7 +112,7 @@ public class ArrayRegister implements Register, Serializable {
 				return persons[i];
 			}
 		}
-		throw new Exception("Take tel. cislo neexistuje");
+		throw new Exception("This tel. number does not exist in register.");
 	}
 
 	/**
@@ -133,12 +130,11 @@ public class ArrayRegister implements Register, Serializable {
 				--count;
 				for (; i < count; ++i) {
 					persons[i] = persons[i + 1];
-
 				}
 				return;
 			}
 		}
-		throw new Exception("Taka osoba neexistuje");
+		throw new Exception("This person does not exist in register.");
 	}
 
 }

@@ -44,7 +44,8 @@ public class ListRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Osoba s takym menom alebo telefonnym cislom uz existuje");
+		assertEquals(exception,
+				"Person with this name or telephone number already exist in register.\nName and telephone number must be unique. ");
 		assertEquals(register.getCount(), 1);
 	}
 
@@ -61,7 +62,7 @@ public class ListRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Take meno neexistuje");
+		assertEquals(exception, "This name does not exist in register.");
 	}
 
 	@Test
@@ -77,7 +78,7 @@ public class ListRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Take tel. cislo neexistuje");
+		assertEquals(exception, "This tel. number does not exist in register.");
 	}
 
 	@Test
@@ -87,7 +88,7 @@ public class ListRegisterTest {
 		} catch (Exception e) {
 			exception = e.getMessage();
 		}
-		assertEquals(exception, "Take meno neexistuje");
+		assertEquals(exception, "This name does not exist in register.");
 		register.addPerson(person1);
 		register.addPerson(person2);
 		assertEquals(person1, register.getPerson(0));

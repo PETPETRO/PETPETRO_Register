@@ -1,7 +1,7 @@
 package register;
 
 /**
- * Created by Peter Petrovaj on 7.8.2015.
+ * Created by Peter Peter Petrovaj on 7.8.2015.
  */
 public class Main {
 

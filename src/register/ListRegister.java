@@ -7,15 +7,8 @@ import java.util.List;
 
 public class ListRegister implements Register, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
 	private List<Person> persons;
-	// = new ArrayList<Person>();
 
 	public ListRegister() {
 		this.persons = new ArrayList<>();
@@ -68,7 +61,8 @@ public class ListRegister implements Register, Serializable {
 		for (int i = 0; i < this.getSize(); i++) {
 			if (person.getName().equals(this.getPerson(i).getName())
 					|| person.getPhoneNumber().equals(this.getPerson(i).getPhoneNumber())) {
-				throw new Exception("Osoba s takym menom alebo telefonnym cislom uz existuje");
+				throw new Exception(
+						"Person with this name or telephone number already exist in register.\nName and telephone number must be unique. ");
 			}
 		}
 
@@ -89,7 +83,7 @@ public class ListRegister implements Register, Serializable {
 	public Person findPersonByName(String name) throws Exception {
 
 		return persons.stream().filter(s -> s.getName().equals(name)).findFirst()
-				.orElseThrow(() -> new Exception("Take meno neexistuje"));
+				.orElseThrow(() -> new Exception("This name does not exist in register."));
 
 	}
 
@@ -105,7 +99,7 @@ public class ListRegister implements Register, Serializable {
 	public Person findPersonByPhoneNumber(String phoneNumber) throws Exception {
 
 		return persons.stream().filter(s -> s.getPhoneNumber().equals(phoneNumber)).findFirst()
-				.orElseThrow(() -> new Exception("Take tel. cislo neexistuje"));
+				.orElseThrow(() -> new Exception("This tel. number does not exist in register."));
 
 	}
 

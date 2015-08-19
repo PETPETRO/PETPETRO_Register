@@ -8,9 +8,7 @@ import java.util.regex.Pattern;
  * register.Person.
  */
 public class Person implements Comparable<Person>, Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	/** Name of this person. */
@@ -74,7 +72,8 @@ public class Person implements Comparable<Person>, Serializable {
 			phoneNumber = phoneNumberNew;
 			return;
 		}
-		throw new Exception("Phone number is not valid");
+		throw new Exception("Phone number is not valid !\nPhone number may begin with"
+				+ " sign \"+\" and must contains at least 10 digits.\nTry again.");
 	}
 
 	/**

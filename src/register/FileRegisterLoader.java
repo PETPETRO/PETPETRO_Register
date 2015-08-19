@@ -13,8 +13,8 @@ public class FileRegisterLoader implements RegisterLoader {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see register.RegisterLoader#save(register.Register)
+	/**
+	 * Save register in binary file.
 	 */
 	@Override
 	public void save(Register register) {
@@ -22,13 +22,13 @@ public class FileRegisterLoader implements RegisterLoader {
 		try (FileOutputStream out = new FileOutputStream(file); ObjectOutputStream s = new ObjectOutputStream(out)) {
 			s.writeObject(register);
 		} catch (Exception e) {
-			e = new Exception("Nieje mozne ulozit subor");
-			System.err.println(e);
+			e = new Exception("Sorry it is not possible to save file !");
+			System.err.println(e.getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see register.RegisterLoader#load()
+	/**
+	 * Load register from binary file to Object of type Register.
 	 */
 	@Override
 	public Register load() {
@@ -41,10 +41,9 @@ public class FileRegisterLoader implements RegisterLoader {
 				register = (Register) pers.readObject();
 				return register;
 			} catch (Exception e) {
-				e = new Exception("Nieje mozne nacitat subor");
-				System.err.println(e);
+				e = new Exception("Sorry, there is no binary file to load !");
+				System.err.println(e.getMessage());
 			}
-
 		}
 		return null;
 	}
