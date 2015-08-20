@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import register.type.Register;
 
 public class FileRegisterLoader implements RegisterLoader {
-	private static final String REGISTER_FILE = "out.bin";
+	private static final String REGISTER_FILE = "register.bin";
 
 	public FileRegisterLoader() {
 
@@ -36,7 +36,7 @@ public class FileRegisterLoader implements RegisterLoader {
 	public Register load() {
 		File file = new File(REGISTER_FILE);
 		Register register;
-		if (new File("out.bin").exists()) {
+		if (new File("register.bin").exists()) {
 
 			try (FileInputStream input = new FileInputStream(file);
 					ObjectInputStream pers = new ObjectInputStream(input);) {

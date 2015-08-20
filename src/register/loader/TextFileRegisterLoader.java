@@ -11,7 +11,7 @@ import register.type.Register;
 
 public class TextFileRegisterLoader implements RegisterLoader {
 
-	private static final String textfile = "TextFileRegisterLoader.txt";
+	private static final String textfile = "register.txt";
 
 	/**
 	 * Save register from parameter into text file.
@@ -40,10 +40,9 @@ public class TextFileRegisterLoader implements RegisterLoader {
 	public Register load() {
 		String line;
 		Register register = new ListRegister();
-		if (new File("TextFileRegisterLoader.txt").exists()) {
+		if (new File("register.txt").exists()) {
 
-			try (FileReader f = new FileReader("TextFileRegisterLoader.txt");
-					BufferedReader reader = new BufferedReader(f)) {
+			try (FileReader f = new FileReader("register.txt"); BufferedReader reader = new BufferedReader(f)) {
 				while ((line = reader.readLine()) != null) {
 					String meno = line.trim();
 					String phone = reader.readLine().trim();

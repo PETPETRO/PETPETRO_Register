@@ -150,13 +150,13 @@ public class ConsoleUI {
 	 * Create the chosen register
 	 */
 	private void chooseList() {
-		// System.out.println("Choose:\n1.Array\n2.List\n3.End");
+
+		String s;
+
 		System.out.println("Choose:\n");
 		System.out.printf("%-30s %7s %n", "1. Array", "Enter 1");
 		System.out.printf("%-30s %7s %n", "2. List", "Enter 2");
 		System.out.printf("%-30s %7s %n", "3. End", "Enter 3");
-
-		String s;
 
 		do {
 			s = readLine().toString();
