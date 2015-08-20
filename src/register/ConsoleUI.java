@@ -142,7 +142,12 @@ public class ConsoleUI {
 	 * Create the chosen register
 	 */
 	private void chooseList() {
-		System.out.println("Choose:\n1.Array\n2.List\n3.End");
+		// System.out.println("Choose:\n1.Array\n2.List\n3.End");
+		System.out.println("Choose:\n");
+		System.out.printf("%-30s %7s %n", "1. Array", "Enter 1");
+		System.out.printf("%-30s %7s %n", "2. List", "Enter 2");
+		System.out.printf("%-30s %7s %n", "3. End", "Enter 3");
+
 		String s;
 
 		do {
@@ -158,7 +163,7 @@ public class ConsoleUI {
 				System.exit(0);
 				break;
 			default:
-				System.out.print("Zadaj 1 alebo 2 alebo 3");
+				System.err.print("Incorect input! Enter 1, 2 or 3.");
 			}
 		} while (!s.matches("[123]"));
 	}
