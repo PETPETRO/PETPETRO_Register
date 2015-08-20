@@ -1,6 +1,6 @@
 Run application in IDE (e.g. Eclipse):
 
-1.Go to main class : PETPETRO_Register\src\register\Main
+1.Go to main class : PETPETRO_Register\src\register\Main.java
 2.Right click with mouse in main class -> Run As -> Java Application
 3.Enjoy
 
@@ -19,5 +19,5 @@ If you want to save your register in database you should create database call "r
 Application use url "jdbc:mysql://localhost/register" , soo database should be in mysql. User name
 is "root" user password is "root". If you don't want to use mysql database go to "PETPETRO_Register\lib"
 and replace "mysql-connector-java-5.1.36-bin.jar" with connector to your database. After that you have to add
-this connector into build path. Go to "PETPETRO_Register\src\register\DatabaseRegisterLoader.java" and set 
+this connector into build path. Go to "PETPETRO_Register\src\register\loader\DatabaseRegisterLoader.java" and set 
 URL, USER and PASSWORD.

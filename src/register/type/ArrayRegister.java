@@ -1,10 +1,12 @@
-package register;
+package register.type;
 
 /**
  * register.Person register.
  */
 
 import java.io.Serializable;
+
+import register.Person;
 
 /**
  * register.Person register.

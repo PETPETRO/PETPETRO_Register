@@ -1,10 +1,12 @@
-package register;
+package register.loader;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import register.type.Register;
 
 public class FileRegisterLoader implements RegisterLoader {
 	private static final String REGISTER_FILE = "out.bin";

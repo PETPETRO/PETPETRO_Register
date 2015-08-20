@@ -1,4 +1,6 @@
-package register;
+package register.loader;
+
+import register.type.Register;
 
 public interface RegisterLoader {
 

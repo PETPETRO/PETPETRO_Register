@@ -1,13 +1,13 @@
-package tests;
+package register.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import register.ArrayRegister;
 import register.Person;
-import register.Register;
+import register.type.ArrayRegister;
+import register.type.Register;
 
 public class ArrayRegisterTest {
 

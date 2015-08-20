@@ -1,9 +1,11 @@
-package register;
+package register.type;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import register.Person;
 
 public class ListRegister implements Register, Serializable {
 

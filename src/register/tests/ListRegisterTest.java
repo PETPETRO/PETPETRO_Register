@@ -1,13 +1,13 @@
-package tests;
+package register.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import register.ListRegister;
 import register.Person;
-import register.Register;
+import register.type.ListRegister;
+import register.type.Register;
 
 public class ListRegisterTest {
 

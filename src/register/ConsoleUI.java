@@ -7,6 +7,14 @@ import java.util.Formatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import register.loader.DatabaseRegisterLoader;
+import register.loader.FileRegisterLoader;
+import register.loader.RegisterLoader;
+import register.loader.TextFileRegisterLoader;
+import register.type.ArrayRegister;
+import register.type.ListRegister;
+import register.type.Register;
+
 /**
  * User interface of the application.
  */
