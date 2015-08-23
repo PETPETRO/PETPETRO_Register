@@ -5,6 +5,7 @@ package register.type;
  */
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import register.Person;
 
@@ -79,6 +80,7 @@ public class ArrayRegister implements Register, Serializable {
 		}
 		persons[count] = person;
 		count++;
+		Arrays.sort(persons, 0, count);
 	}
 
 	/**
