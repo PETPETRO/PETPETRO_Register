@@ -26,7 +26,6 @@ public class ConsoleUI {
 	private RegisterLoader fileLoad = new FileRegisterLoader();
 	private RegisterLoader databaseLoad = new DatabaseRegisterLoader();
 	private RegisterLoader textLoad = new TextFileRegisterLoader();
-	private RegisterLoader loader = null;
 	/**
 	 * In JDK 6 use Console class instead.
 	 * 
@@ -129,21 +128,28 @@ public class ConsoleUI {
 		do {
 			String input = readLine().toString();
 			if (input.equals("1")) {
-				loader = fileLoad;
+				fileLoad.save(this.register);
 				break;
 			} else if (input.equals("2")) {
-				loader = textLoad;
+				textLoad.save(this.register);
+
 				break;
 			} else if (input.equals("3")) {
-				loader = databaseLoad;
-				break;
+
+				if (databaseLoad.load() != null) {
+					databaseLoad.save(this.register);
+					break;
+				} else {
+					System.err.println("Sorry, but databse \"register\" does notexist.\n"
+							+ "Create database first or save your register as text or binary file.\n");
+					save();
+					break;
+				}
 			} else if (input.equals("4")) {
 				System.exit(0);
 			} else
 				System.err.println("Incorect Input enter 1-4.");
 		} while (!input.equals("1") || !input.equals("2") || !input.equals("3") || !input.equals("4"));
-
-		this.loader.save(this.register);
 	}
 
 	/**

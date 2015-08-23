@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
+
 import register.Person;
 import register.type.ListRegister;
 import register.type.Register;
@@ -17,6 +19,7 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 	public static final String USER = "root";
 	public static final String PASSWORD = "root";
 	// Queries
+	public static final String SET = "SET SQL_SAFE_UPDATES = 0";
 	public static final String SAVE = "insert into person (id,name,phoneNumber) values(?,?,?)";
 	public static final String DELETE = "delete from person";
 	public static final String SELECT = "select id, name,phoneNumber from person";
@@ -31,12 +34,13 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 	@Override
 	public void save(Register register) {
 
-		try {
-			Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-			Statement stmt1 = con.createStatement();
-			stmt1.execute(DELETE);
-			stmt1.close();
-			PreparedStatement stmt2 = con.prepareStatement(SAVE);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+				Statement stmt1 = con.createStatement();
+				PreparedStatement stmt2 = con.prepareStatement(SAVE);) {
+
+			stmt1.execute(SET);
+			stmt1.executeUpdate(DELETE);
+
 			int count = register.getCount();
 			for (int i = 0; i < count; i++) {
 				Person person = register.getPerson(i);
@@ -45,8 +49,15 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 				stmt2.setString(3, person.getPhoneNumber());
 				stmt2.executeUpdate();
 			}
-			stmt2.close();
-			con.close();
+
+		} catch (MySQLSyntaxErrorException e) {
+			try {
+				DriverManager.getConnection(URL, USER, PASSWORD).createStatement().execute(CREATE_TABLE);
+				save(register);
+			} catch (SQLException e1) {
+				e.getMessage();
+			}
+
 		} catch (SQLException e) {
 			e.getMessage();
 			System.err.println(e);
@@ -73,9 +84,8 @@ public class DatabaseRegisterLoader implements RegisterLoader {
 			return register;
 		} catch (Exception e) {
 			e = new Exception("Sorry, there is no database to load !");
-			System.err.println(e.getMessage());
+			// System.err.println(e.getMessage());
+			return null;
 		}
-		return null;
 	}
-
 }
